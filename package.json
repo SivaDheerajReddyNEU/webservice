@@ -1,0 +1,12 @@
+{
+  "name": "webserver",
+  "description": "",
+  "version": "1.0.0",
+  "scripts":{
+    "build":"echo 'server Started'",
+    "test":"node_modules/mocha/bin/mocha test/test.js"
+  },
+  "dependencies": {
+    "mocha": "^9.2.0"
+  }
+}
