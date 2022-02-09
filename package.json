@@ -1,4 +1,11 @@
 {
+  "name": "webserver",
+  "description": "",
+  "version": "1.0.0",
+  "scripts":{
+    "build":"node source/main.js",
+    "test":"node_modules/mocha/bin/mocha test/test.js"
+  },
   "dependencies": {
     "mocha": "^9.2.0"
   }
