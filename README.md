@@ -1,5 +1,20 @@
 # webservice
 
+Prerequisites:
+
+You should have git installed in your system
+you should have node installed in your system
+you need mocha and npm to test the unit cases in your system
+
+
+Setup:
+
+after cloning the build, start the node server from the file source/main.js
+to run the unit testing you can run npm run test
+
+
+Instructions:
+
 Git (30%)
 All students must use the Github forking workflow and their repositories (main branch which must include code for this assignment) must be in-sync. Check this by asking students to create pull requests between their main branch and their assignment branch. There should be no changes. Verify that all assignment changes are in main branch.
 
