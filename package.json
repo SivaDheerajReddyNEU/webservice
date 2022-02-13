@@ -2,11 +2,20 @@
   "name": "webserver",
   "description": "",
   "version": "1.0.0",
-  "scripts":{
-    "build":"echo 'server Started'",
-    "test":"node_modules/mocha/bin/mocha test/test.js"
+  "scripts": {
+    "build": "nothing to build",
+    "dev": "node source/main.js",
+    "test": "node_modules/mocha/bin/mocha test/test.js"
   },
   "dependencies": {
-    "mocha": "^9.2.0"
+    "express": "^4.17.2",
+    "express-basic-auth": "^1.2.1",
+    "http-auth": "^4.1.9",
+    "mocha": "^9.2.0",
+    "mysql": "^2.18.1",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }
