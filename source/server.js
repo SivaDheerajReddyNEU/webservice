@@ -8,7 +8,7 @@ var server = http.createServer(function (req, res) {
   // console.log(req);ç
   console.log(urlParts);
   console.log(req.url);
-  var result={
+  var result={};
   switch(req.url){
     case '/healthz':
       res.writeHead(200, {'Content-Type': 'application/json'});
