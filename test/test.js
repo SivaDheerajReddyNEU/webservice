@@ -21,18 +21,7 @@ describe('Web Server test', function() {
         var body = '';
 				response.on('data', function(d) {body += d;});
 				response.on('end', function() {
-					assert.equal(body, '{"status":"running"}');
-					done();
-				});
-			});
-		});
-    it('should be Status invalid path', function(done) {
-			http.get('http://127.0.0.1:'+port+'/', function(response) {
-				assert.equal(response.statusCode, 404);
-        var body = '';
-				response.on('data', function(d) {body += d;});
-				response.on('end', function() {
-					assert.equal(body, '{"status":"invalid path"}');
+					assert.equal(body, '');
 					done();
 				});
 			});
