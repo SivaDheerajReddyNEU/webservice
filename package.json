@@ -3,7 +3,6 @@
   "description": "",
   "version": "1.0.0",
   "scripts": {
-    "build": "nothing to build",
     "dev": "node_modules/nodemon/bin/nodemon.js source/main.js",
     "test": "node_modules/mocha/bin/mocha test/test.js"
   },

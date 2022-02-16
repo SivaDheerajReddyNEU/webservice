@@ -1,13 +1,14 @@
-var http = require('http');
-var assert = require('assert');
-var server = require('../source/server.js');
+const http = require('http');
+const assert = require('assert');
+const app = require('../source/server.js');
 
 
 
 describe('Web Server test', function() {
-  var port = 8080;
+  const port = 8080;
+  let server
 	before(function() {
-		server.listen(port);
+		server = app.listen(port);
 	});
 
 	after(function() {
@@ -16,14 +17,9 @@ describe('Web Server test', function() {
 
 	describe('/', function() {
 		it('should be Status running', function(done) {
-			http.get('http://127.0.0.1:'+port+'/healthz', function(response) {
+			http.get('http://127.0.0.1:'+port+'/v1/healthz', function(response) {
 				assert.equal(response.statusCode, 200);
-        var body = '';
-				response.on('data', function(d) {body += d;});
-				response.on('end', function() {
-					assert.equal(body, '');
-					done();
-				});
+				done();
 			});
 		});
 	});
