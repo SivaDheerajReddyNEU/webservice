@@ -1,14 +1,16 @@
 const server = require("./server.js");
 const db = require('./util/mysql.js');
-const port = 8080;
+const CONFIG = require('./config.js');
 
-// db.query('select * from user',(err,data)=>{
-//   if(err){
-//     return console.log(err);
-//   }
-//   console.log('data from db')
-//   console.log(data);
-// });
-server.listen(port,()=>{
-  console.log("server started at port: ",port);
+server.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.setHeader('Content-Type', 'application/json');
+  res.status(500).send({'error':'Unexpected error'});
+})
+server.listen(CONFIG.SERVER_PORT,()=>{
+  console.log("server started at port: ",CONFIG.SERVER_PORT);
+});
+
+process.on('uncaughtException', function(ex) {
+  console.log("server crash triggered");
 });
