@@ -1,10 +1,11 @@
-const db = require('./util/mysql.js');
+// const db = require('./util/mysql.js');
 const CONSTANT = require('./util/constants');
-const hashUtil = require('./util/EncryptUtil.js');
+// const hashUtil = require('./util/EncryptUtil.js');
 const res = require('express/lib/response');
-
+const db2 = require('./db/db');
 
 async function addUser(user, callback) {
+  
   getUserDetails(user.userName, (err, data) => {
     if (err === CONSTANT.ERROR_IN_QUERY) {
       return callback(CONSTANT.ERROR_IN_QUERY, undefined);
@@ -18,6 +19,7 @@ async function addUser(user, callback) {
       console.log('inserting user details');
       let date_ob = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
       console.log(date_ob)
+      
       db.query('insert into user (id,username,password,first_name,last_name,created_time,updated_time) values(uuid(),' + db.escape(user.userName) + ',' + db.escape(user.password) + ',' + db.escape(user.firstName) + ',' + db.escape(user.lastName) + ',' + db.escape(date_ob) + ',' + db.escape(date_ob) + ')', (err, data) => {
         if (err) {
           console.log('error while inserting user details');
@@ -35,6 +37,8 @@ async function addUser(user, callback) {
 
 
 async function getUserDetails(userName, callback) {
+  console.log("test: ");
+  console.log(await db2.User.findOne({ where: { username: userName } }));
   db.query('select * from user where username=' + db.escape(userName), (err, data) => {
     if (err) {
       console.log('error in getting user details');
