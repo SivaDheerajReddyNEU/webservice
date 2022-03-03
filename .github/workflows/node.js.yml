@@ -24,6 +24,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+        
     - name: Setting up Hashicorp Packer
       uses: hashicorp-contrib/setup-packer@v1
       with:
@@ -43,7 +44,7 @@ jobs:
 
     - name: Setting packer logs to Verbose
       run: export PACKER_LOG=1
-      
+
     - name: Installing packer provisioners
       run: packer init aws-linux2.pkr.hcl
 
