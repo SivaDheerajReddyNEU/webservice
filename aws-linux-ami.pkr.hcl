@@ -30,7 +30,8 @@ build {
     inline = [
       "sleep 30",
       "pwd",
-      "zip"
+      "zip",
+      "ls"
     ]
   }
   provisioner "file" {
