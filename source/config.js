@@ -1,6 +1,6 @@
 module.exports = Object.freeze({
   MYSQL_USERNAME: 'root',
-  MYSQL_PASSWORD: 'admin',
+  MYSQL_PASSWORD: '',
   SERVER_PORT:8080,
   SALT_ROUND:10,
   HOST:'localhost',

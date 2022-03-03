@@ -1,0 +1,10 @@
+[Unit]
+Description=to start service on reboot
+After=mariadb.service
+
+[Service]
+Type=simple
+ExecStart=/tmp/node_startup.sh
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,23 @@
+{
+  "builds": [
+    {
+      "name": "customWebApp",
+      "builder_type": "amazon-ebs",
+      "build_time": 1646319071,
+      "files": null,
+      "artifact_id": "us-east-1:ami-0d5cddf69416498d8",
+      "packer_run_uuid": "deaba031-1ea0-4c99-c0ba-84b18f552cb2",
+      "custom_data": null
+    },
+    {
+      "name": "customWebApp",
+      "builder_type": "amazon-ebs",
+      "build_time": 1646319572,
+      "files": null,
+      "artifact_id": "us-east-1:ami-022764d700133d5e9",
+      "packer_run_uuid": "9aa8c6fd-535f-a723-a2d5-9c685671f2fa",
+      "custom_data": null
+    }
+  ],
+  "last_run_uuid": "9aa8c6fd-535f-a723-a2d5-9c685671f2fa"
+}
