@@ -30,7 +30,6 @@ build {
     inline = [
       "sleep 30",
       "pwd",
-      "zip",
       "ls"
     ]
   }
