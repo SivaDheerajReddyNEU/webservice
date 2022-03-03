@@ -33,6 +33,11 @@ build {
       "ls"
     ]
   }
+  provisioner "shell" {
+    inline = [
+      "zip"
+    ]
+  }
   provisioner "file" {
     source      = "application_boot.service"
     destination = "/tmp/application_boot.service"
@@ -45,7 +50,7 @@ build {
   
   provisioner "file" {
     source ="./"
-    destination="/webserver"
+    destination="webserver"
   }
 
 
