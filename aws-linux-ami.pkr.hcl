@@ -29,7 +29,7 @@ build {
   provisioner "shell" {
     inline = [
       "sleep 30",
-      "pwd"
+      "pwd",
       "zip"
     ]
   }
