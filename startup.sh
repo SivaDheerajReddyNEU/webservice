@@ -15,7 +15,7 @@ PATH=/usr/bin:/usr/local/sbin:/sbin:/bin:/usr/sbin:/usr/local/bin:/opt/aws/bin:/
 
 
 #installing node server
-curl -sL https://rpm.nodesource.com/setup_6.x | sudo -E bash -
+curl -sL https://rpm.nodesource.com/setup_16.x | sudo -E bash - 
 sudo yum install nodejs --enablerepo=nodesource -y
 
 # Commands to install Mysql and Make it a service
@@ -39,7 +39,10 @@ sudo ls -l /tmp
 #settingup node
 print_command_info SETTING-NODE-FILES
 mkdir webserver
-unzip /tmp/webserver webserver/
+unzip /tmp/webserver -d webserver/
+cd webserver
+npm ci
+npm run start
 
 # Changing permissions for running startup script
 print_command_info CHANGING-PERMISSIONS-FOR-STARTUP-SCRIPT
