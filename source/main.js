@@ -1,5 +1,5 @@
 const server = require("./server.js");
-const db = require('./util/mysql.js');
+// const db = require('./util/mysql.js');
 const CONFIG = require('./config.js');
 
 server.use((err, req, res, next) => {
@@ -13,4 +13,5 @@ server.listen(CONFIG.SERVER_PORT,()=>{
 
 process.on('uncaughtException', function(ex) {
   console.log("server crash triggered");
+  console.log(ex);
 });
