@@ -1,3 +1,3 @@
 #!/bin/sh
 
-sudo node ~/webserver/source/main.js &
+sudo node /home/ec2-user/webserver/source/main.js &
