@@ -27,10 +27,6 @@ const router = express.Router();
 // })
 
 
-router.get('/healthz', (req, res) => {
-  console.log('inside get request');
-  res.send();
-});
 
 
 // router.post('/user',securityUtil.validateCreateUser, (req, res) => {
@@ -139,15 +135,21 @@ router.get('/healthz', (req, res) => {
 
 
 
+
+
+app.use('/v1/user', require('./User/user.controller'));
+
+router.get('/healthz', (req, res) => {
+  console.log('inside get request');
+  res.send();
+});
+app.use('/v1', router);
 router.get('*', (req, res) => {
   res.status(400);
   res.setHeader('Content-Type', 'application/json');
   // res.send({"error":'url not defined'});
   res.send()
 });
-
-app.use('/v1/user', require('./User/user.controller'));
-app.use('/v1/*', router);
 // app.use((err, req, res, next) => {
 //   console.error(err.stack);
 //   res.status(500).send('Unexpected error');
