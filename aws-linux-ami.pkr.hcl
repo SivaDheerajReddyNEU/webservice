@@ -35,8 +35,13 @@ build {
   }
   provisioner "shell" {
     inline = [
-      "zip"
+      "zip -r webserver.zip ./* "
     ]
+  }
+
+  provisioner "file" {
+    source = "webserver.zip"
+    destination ="/tmp/webserver.zip"
   }
   provisioner "file" {
     source      = "application_boot.service"
