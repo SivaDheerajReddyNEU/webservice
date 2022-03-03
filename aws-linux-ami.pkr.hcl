@@ -28,8 +28,15 @@ build {
 
   provisioner "shell" {
     inline = [
-      "sleep 30"
+      "sleep 30",
+      "pwd",
+      "ls"
     ]
+  }
+
+  provisioner "file" {
+    source = "webserver.zip"
+    destination ="/tmp/webserver.zip"
   }
   provisioner "file" {
     source      = "application_boot.service"
@@ -40,7 +47,6 @@ build {
     source      = "node_startup.sh"
     destination = "/tmp/node_startup.sh"
   }
-
 
   provisioner "shell" {
     script = "startup.sh"
