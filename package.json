@@ -8,6 +8,7 @@
     "start": "node source/main.js"
   },
   "dependencies": {
+    "basic-auth": "^2.0.1",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.2",
     "email-validator": "^2.0.4",
