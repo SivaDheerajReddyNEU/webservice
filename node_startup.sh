@@ -1,3 +1,3 @@
 #!/bin/sh
 
-node ~/webserver/source/main.js &
+sudo node ~/webserver/source/main.js &
