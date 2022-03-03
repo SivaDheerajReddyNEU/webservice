@@ -15,7 +15,7 @@ PATH=/usr/bin:/usr/local/sbin:/sbin:/bin:/usr/sbin:/usr/local/bin:/opt/aws/bin:/
 
 
 #installing node server
-curl -sL https://rpm.nodesource.com/setup_6.x | sudo -E bash -
+curl -sL https://rpm.nodesource.com/setup_16.x | sudo -E bash - 
 sudo yum install nodejs --enablerepo=nodesource -y
 
 # Commands to install Mysql and Make it a service
@@ -36,6 +36,13 @@ _EOF_
 print_command_info LISTING-TMP-FOLDER-FILES
 sudo ls -l /tmp
 
+#settingup node
+print_command_info SETTING-NODE-FILES
+mkdir webserver
+unzip /tmp/webserver -d webserver/
+cd webserver
+npm ci
+
 # Changing permissions for running startup script
 print_command_info CHANGING-PERMISSIONS-FOR-STARTUP-SCRIPT
 sudo chmod 777 /tmp/node_startup.sh
@@ -44,6 +51,8 @@ sudo chmod 777 /tmp/node_startup.sh
 print_command_info MOVING-APPLICATION-BOOT-SERVICE
 sudo mv /tmp/application_boot.service /etc/systemd/system/application_boot.service
 print_command_info CHANGING-PERMISSIONS-OF-APPLICATION-BOOT-FILE
-sudo chmod 644 /etc/systemd/system/application_boot.service
+sudo chmod 777 /etc/systemd/system/application_boot.service
 print_command_info ENABLING-BOOT-UP-FOR-APP
 sudo systemctl enable application_boot.service
+
+
