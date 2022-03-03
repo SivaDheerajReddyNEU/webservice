@@ -42,7 +42,6 @@ mkdir webserver
 unzip /tmp/webserver -d webserver/
 cd webserver
 npm ci
-npm run start
 
 # Changing permissions for running startup script
 print_command_info CHANGING-PERMISSIONS-FOR-STARTUP-SCRIPT
