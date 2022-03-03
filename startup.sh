@@ -36,6 +36,11 @@ _EOF_
 print_command_info LISTING-TMP-FOLDER-FILES
 sudo ls -l /tmp
 
+#settingup node
+print_command_info SETTING-NODE-FILES
+mkdir webserver
+unzip /tmp/webserver webserver/
+
 # Changing permissions for running startup script
 print_command_info CHANGING-PERMISSIONS-FOR-STARTUP-SCRIPT
 sudo chmod 777 /tmp/node_startup.sh
@@ -47,3 +52,5 @@ print_command_info CHANGING-PERMISSIONS-OF-APPLICATION-BOOT-FILE
 sudo chmod 644 /etc/systemd/system/application_boot.service
 print_command_info ENABLING-BOOT-UP-FOR-APP
 sudo systemctl enable application_boot.service
+
+
