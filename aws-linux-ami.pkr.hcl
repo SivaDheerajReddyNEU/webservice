@@ -16,7 +16,7 @@ source "amazon-ebs" "customWebApp" {
   skip_region_validation = true
   source_ami             = "ami-033b95fb8079dc481"
   ssh_username           = "ec2-user"
-  ami_users              = ["231492973484"]
+  ami_users              = ["231492973484","101417083507"]
   force_deregister       = true
   force_delete_snapshot  = true
 }
