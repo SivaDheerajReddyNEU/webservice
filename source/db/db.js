@@ -4,7 +4,7 @@ const { Sequelize } = require('sequelize');
 module.exports = db= {};
 let isInitialized= false;
 db.initialize = initialize;
-initialize();''
+initialize();
 
 async function initialize() {
   if(isInitialized){

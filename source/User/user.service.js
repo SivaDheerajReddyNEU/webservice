@@ -1,5 +1,5 @@
 const uuid = require('uuid');
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 const db = require('./../db/db');
 
 async function createUser(user) {

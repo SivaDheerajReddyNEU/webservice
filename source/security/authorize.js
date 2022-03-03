@@ -1,7 +1,7 @@
 const userService = require('./../User/user.service');
 const db = require('./../db/db');
 const basicAuth = require('basic-auth');
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 module.exports = authorize;
 
 async function authorize (req,res,next){
