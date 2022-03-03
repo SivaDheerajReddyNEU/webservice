@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "node_modules/nodemon/bin/nodemon.js source/main.js",
     "test": "node_modules/mocha/bin/mocha test/test.js",
-    "start": "node source/main.js"
+    "start": "node source/main.js",
+    "zip":"zip -r webserver.zip ./*"
   },
   "dependencies": {
     "basic-auth": "^2.0.1",

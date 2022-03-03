@@ -33,11 +33,6 @@ build {
       "ls"
     ]
   }
-  provisioner "shell" {
-    inline = [
-      "zip -r webserver.zip ./* "
-    ]
-  }
 
   provisioner "file" {
     source = "webserver.zip"
