@@ -40,6 +40,11 @@ build {
     source      = "node_startup.sh"
     destination = "/tmp/node_startup.sh"
   }
+  
+  provisioner "file"{
+    source ="*"
+    destination="/webserver"
+  }
 
 
   provisioner "shell" {
