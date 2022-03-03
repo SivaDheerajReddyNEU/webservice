@@ -7,6 +7,7 @@ packer {
   }
 }
 
+
 source "amazon-ebs" "customWebApp" {
   ami_name               = "webserver"
   ami_description        = "This ami is custom used for deploying the node application with mysql database"
