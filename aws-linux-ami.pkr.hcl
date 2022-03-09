@@ -18,7 +18,7 @@ source "amazon-ebs" "customWebApp" {
   ssh_username           = "ec2-user"
   ami_users              = ["231492973484","101417083507"]
   force_deregister       = true
-  force_delete_snapshot  = true,
+  force_delete_snapshot  = true
 }
 
 build {
