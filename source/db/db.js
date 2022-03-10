@@ -20,7 +20,8 @@ async function initialize() {
     console.log("DB:CONFIG:")
   console.log(config)
     const { HOST, SERVER_PORT, MYSQL_USERNAME, MYSQL_PASSWORD, DATABASE } = config;
-
+    let rawdata = fs.readFileSync(path.resolve(__dirname, "../../mysql.config"));
+    let mysqlConfig = JSON.parse(rawdata);
     await mysql.createConnection({  host: mysqlConfig.dbHost,
       user: mysqlConfig.dbUser,
       password: mysqlConfig.dbPass}).then(connection => connection.query(`CREATE DATABASE IF NOT EXISTS \`${DATABASE}\`;`))
