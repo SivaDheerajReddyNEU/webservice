@@ -2,12 +2,13 @@ const mysql = require('mysql2/promise');
 const fs = require('fs')
 const { Sequelize } = require('sequelize');
 const config = require('../config');
+const path = require("path");
 // const mysqlConfig = require('../../mysql.config');
 module.exports = db= {};
 let isInitialized= false;
 db.initialize = initialize;
 initialize();
-let rawdata = fs.readFileSync('../../mysql.config');
+let rawdata = fs.readFileSync(path.resolve(__dirname, "../../mysql.config"));
 let mysqlConfig = JSON.parse(rawdata);
 console.log(mysqlConfig);
 async function initialize() {
