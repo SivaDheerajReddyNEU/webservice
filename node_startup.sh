@@ -1,3 +1,3 @@
 #!/bin/sh
 
- node /home/ec2-user/webserver/source/main.js
+ node /home/ec2-user/webserver/source/main.js > log.txt
