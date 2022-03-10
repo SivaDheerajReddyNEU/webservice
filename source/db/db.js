@@ -1,11 +1,16 @@
 const mysql = require('mysql2/promise');
+const fs = require('fs')
 const { Sequelize } = require('sequelize');
 const config = require('../config');
+const path = require("path");
+// const mysqlConfig = require('../../mysql.config');
 module.exports = db= {};
 let isInitialized= false;
 db.initialize = initialize;
 initialize();
-
+let rawdata = fs.readFileSync(path.resolve(__dirname, "../../mysql.config"));
+let mysqlConfig = JSON.parse(rawdata);
+console.log(mysqlConfig);
 async function initialize() {
   if(isInitialized){
     return;
@@ -16,13 +21,13 @@ async function initialize() {
   console.log(config)
     const { HOST, SERVER_PORT, MYSQL_USERNAME, MYSQL_PASSWORD, DATABASE } = config;
 
-    await mysql.createConnection({  host: HOST,
-      user: MYSQL_USERNAME,
-      password: MYSQL_PASSWORD}).then(connection => connection.query(`CREATE DATABASE IF NOT EXISTS \`${DATABASE}\`;`))
+    await mysql.createConnection({  host: mysqlConfig.dbHost,
+      user: mysqlConfig.dbUser,
+      password: mysqlConfig.dbPass}).then(connection => connection.query(`CREATE DATABASE IF NOT EXISTS \`${DATABASE}\`;`))
       .then(data => console.log('queried')).catch(data => console.log("failed"));
 
     // connect to db
-    const sequelize = new Sequelize(DATABASE, MYSQL_USERNAME, MYSQL_PASSWORD, { host:HOST,dialect: 'mysql' });
+    const sequelize = new Sequelize(DATABASE, mysqlConfig.dbUser, mysqlConfig.dbPass, { host:mysqlConfig.dbHost,dialect: 'mysql' });
 
     // init models and add them to the exported db object
     db.User = require('../User/user.model')(sequelize);
