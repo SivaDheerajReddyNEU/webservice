@@ -7,6 +7,8 @@ server.use((err, req, res, next) => {
   res.setHeader('Content-Type', 'application/json');
   res.status(500).send({'error':'Unexpected error'});
 })
+console.log("CONFIG:")
+console.log(CONFIG)
 server.listen(CONFIG.SERVER_PORT,()=>{
   logger.info("server started at port: ",CONFIG.SERVER_PORT);
 });
