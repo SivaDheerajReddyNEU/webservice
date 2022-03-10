@@ -24,6 +24,15 @@ async function initialize() {
 
     // init models and add them to the exported db object
     db.User = require('../User/user.model')(sequelize);
+    db.UserInfo = require('../User/userInfo/userInfo.model')(sequelize);
+    // db.UserInfo.associate=(models)=>{
+    //   models.UserInfo.belongsTo(db.User,{
+    //     as:'user_id',
+    //     foreignKey:'id'
+    //   })
+    // }
+    db.UserInfo.belongsTo(db.User,{as:'Users',foreignKey:'user_id',targetKey:'id'});
+
     console.log("after assigning")
     // sync all models with database
     await sequelize.sync();

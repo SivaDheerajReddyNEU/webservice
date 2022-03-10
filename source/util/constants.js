@@ -17,5 +17,10 @@ module.exports= Object.freeze({
 UPDATE_USER_PARAM_MAP:{
   "PARAM_KEYS":['username','password','first_name','last_name'],
   "REQUIRED_PARAMS":[]
-}
+},
+S3_BUCKET_NAME : "dheeraj.assign4",// need to make it random
+S3_BUCKET_REGION : 'us-east-1',
+S3_USERS_PATH : "Users"
 });
+
+
