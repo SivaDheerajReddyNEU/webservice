@@ -1,6 +1,6 @@
-const config = require('../config');
 const mysql = require('mysql2/promise');
 const { Sequelize } = require('sequelize');
+const config = require('../config');
 module.exports = db= {};
 let isInitialized= false;
 db.initialize = initialize;
@@ -12,16 +12,17 @@ async function initialize() {
   }
   console.log("inside initializing")
     // create db if it doesn't already exist
-    console.log(config)
+    console.log("DB:CONFIG:")
+  console.log(config)
     const { HOST, SERVER_PORT, MYSQL_USERNAME, MYSQL_PASSWORD, DATABASE } = config;
 
-    const connection = await mysql.createConnection({  host: HOST,
+    await mysql.createConnection({  host: HOST,
       user: MYSQL_USERNAME,
-      password: MYSQL_PASSWORD});
-    await connection.query(`CREATE DATABASE IF NOT EXISTS \`${DATABASE}\`;`);
+      password: MYSQL_PASSWORD}).then(connection => connection.query(`CREATE DATABASE IF NOT EXISTS \`${DATABASE}\`;`))
+      .then(data => console.log('queried')).catch(data => console.log("failed"));
 
     // connect to db
-    const sequelize = new Sequelize(DATABASE, MYSQL_USERNAME, MYSQL_PASSWORD, { dialect: 'mysql' });
+    const sequelize = new Sequelize(DATABASE, MYSQL_USERNAME, MYSQL_PASSWORD, { host:HOST,dialect: 'mysql' });
 
     // init models and add them to the exported db object
     db.User = require('../User/user.model')(sequelize);
