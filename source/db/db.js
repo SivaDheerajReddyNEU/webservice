@@ -12,6 +12,7 @@ async function initialize() {
   }
   console.log("inside initializing")
     // create db if it doesn't already exist
+    console.log(config)
     const { HOST, SERVER_PORT, MYSQL_USERNAME, MYSQL_PASSWORD, DATABASE } = config;
 
     const connection = await mysql.createConnection({  host: HOST,
