@@ -3,22 +3,26 @@
   "description": "",
   "version": "1.0.0",
   "scripts": {
-    "dev": "node_modules/nodemon/bin/nodemon.js source/main.js",
+    "dev": "node_modules/nodemon/bin/nodemon.js --trace-warnings source/main.js > logs.txt",
     "test": "node_modules/mocha/bin/mocha test/test.js",
     "start": "node source/main.js",
-    "zip":"zip -r webserver.zip ./*"
+    "zip": "zip -r webserver.zip ./*"
   },
   "dependencies": {
+    "aws-sdk": "^2.1087.0",
     "basic-auth": "^2.0.1",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.2",
     "email-validator": "^2.0.4",
     "express": "^4.17.2",
+    "express-winston": "^4.2.0",
     "mocha": "^9.2.0",
+    "multer": "^1.4.4",
     "mysql2": "^2.3.3",
     "path": "^0.12.7",
     "sequelize": "^6.17.0",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "winston": "^3.6.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
