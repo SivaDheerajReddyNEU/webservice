@@ -1,8 +1,12 @@
 const aws = require('aws-sdk');
 // const fs = require('fs');
-
-const {S3_BUCKET_NAME,S3_BUCKET_REGION,S3_USERS_PATH} = require('../util/constants');
-
+const fs = require('fs');
+const path = require("path");
+const {S3_BUCKET_REGION,S3_USERS_PATH} = require('../util/constants');
+// require("../../mysql.config")
+let rawdata = fs.readFileSync(path.resolve(__dirname, "../../mysql.config"));
+let userConfig = JSON.parse(rawdata);
+const S3_BUCKET_NAME = userConfig.bucketName;
 const s3 = new aws.S3({
   accessKeyId: "AKIATLZQOOOWDA7BQPHP",
   secretAccessKey: "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"
