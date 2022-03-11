@@ -1,8 +1,12 @@
 const uuid = require('uuid');
+const fs = require('fs');
+const path = require("path");
 const s3Util = require('./../../s3/s3Util');
 const db = require('../../db/db');
-const { S3_BUCKET_NAME, S3_USERS_PATH } = require('../../util/constants');
-
+let rawdata = fs.readFileSync(path.resolve(__dirname, "../../../mysql.config"));
+let userConfig = JSON.parse(rawdata);
+const {  S3_USERS_PATH } = require('../../util/constants');
+const S3_BUCKET_NAME = userConfig.bucketName;
 async function addProfilePic({username,file,fileName='profilePic.jpg'})
 {
   console.log(file);
