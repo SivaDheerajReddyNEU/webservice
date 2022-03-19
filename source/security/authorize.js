@@ -11,11 +11,11 @@ async function authorize (req,res,next){
     res.sendStatus(401);
     return;
   }
-  console.log(data)
+  // console.log(data)
   const user = await db.User.findOne({where:{username:data.name}})
-  console.log(user)
-  console.log(user.password)
-  console.log(data.pass)
+  // console.log(user)
+  // console.log(user.password)
+  // console.log(data.pass)
   if (!(await bcrypt.compare(data.pass, user.password)))
   {
     res.set('WWW-Authenticate', 'Basic realm=Authorization Required');
@@ -23,8 +23,9 @@ async function authorize (req,res,next){
     return
   }
   console.log("authentication user details")
-  console.log(user) 
+  // console.log(user) 
   req.ctx={};
   req.ctx.user = data;
+  console.log(" user authenticated ...")
   next()
 }

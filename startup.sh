@@ -18,20 +18,6 @@ PATH=/usr/bin:/usr/local/sbin:/sbin:/bin:/usr/sbin:/usr/local/bin:/opt/aws/bin:/
 curl -sL https://rpm.nodesource.com/setup_16.x | sudo -E bash - 
 sudo yum install nodejs --enablerepo=nodesource -y
 
-# Commands to install Mysql and Make it a service
-print_command_info INSTALLING-MARIADB-SERVER
-sudo yum install -y mariadb-server
-print_command_info STARTING-MARIADB-SERVER
-sudo systemctl start mariadb
-print_command_info ENABLING-DEFAULT-BOOT-STARTUP-MARIADB
-sudo systemctl enable mariadb
-
-# Creating database for application to connect.
-print_command_info CREATING-DATABSE-webserver
-mysql --user=root <<_EOF_
-CREATE DATABASE webserver;
-_EOF_
-
 # Listing files in tmp folder
 print_command_info LISTING-TMP-FOLDER-FILES
 sudo ls -l /tmp

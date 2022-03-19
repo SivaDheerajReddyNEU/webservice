@@ -62,8 +62,8 @@ async function getUserDetails({username}){
   const {id,first_name,last_name,created_time,updated_time} = data.dataValues;
   console.log({id,username,first_name,last_name,created_time,updated_time});
   return {id,username,first_name,last_name,created_time,updated_time}
-
 }
+
 
 async function getUserWithHash({username}){
   return await db.User.findOne({ where: { username: username } });
