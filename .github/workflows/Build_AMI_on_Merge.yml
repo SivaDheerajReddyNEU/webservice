@@ -2,7 +2,7 @@
 name: Building AMI on Merge
 
 on:
-  pull_request:
+  push:
     branches: [ master ]
 
 jobs:
