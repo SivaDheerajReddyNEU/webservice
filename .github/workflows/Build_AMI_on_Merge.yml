@@ -1,11 +1,9 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: Node.js CI
+name: Building AMI on Merge
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   build:
@@ -57,6 +55,9 @@ jobs:
     
     - name: Printing the contents of Directory before Packer build
       run: ls -l
+
+    - name: Building Packer Template
+      run: packer build aws-linux-ami.pkr.hcl
 
     - name: Printing the contents of Directory
       run: ls -l
