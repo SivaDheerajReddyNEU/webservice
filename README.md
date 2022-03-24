@@ -8,10 +8,10 @@ you need mocha and npm to test the unit cases in your system
 
 
 
-
 Setup:
 
 after cloning the build, start the node server from the file source/main.js
+
 to run the unit testing you can run npm run test
 
 
