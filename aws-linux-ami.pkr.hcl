@@ -36,10 +36,6 @@ build {
   }
 
   provisioner "file" {
-    source = "webserver.zip"
-    destination ="/tmp/webserver.zip"
-  }
-  provisioner "file" {
     source      = "application_boot.service"
     destination = "/tmp/application_boot.service"
   }
