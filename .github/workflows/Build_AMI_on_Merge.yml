@@ -1,9 +1,14 @@
 
 name: Building AMI on Merge
 
+env:
+  ARTIFACT_NAME: csye6225-webapp-${{github.sha}}.zip
+  CODEDEPLOY_APPLICATION_NAME: mywebapp
+  CODEDEPLOY_APPLICATION_DEPLOYMENT_GROUP_NAME: mywebapp
+  AWS_REGION: us-east-1
 on:
   push:
-    branches: [ main ]
+    branches: [ assignment7 ]
 
 jobs:
   build:
@@ -28,21 +33,6 @@ jobs:
       with:
         packer-version: 1.7.10
 
-    -  run: npm run zip
-    
-    - name: Running test cases on featureBranch
-      run: npm ci
-      
-    -  run: npm run build --if-present
-    -  run: npm test
-    # -  run: npm run zip
-
-    - name: AWS credentials 
-      uses: aws-actions/configure-aws-credentials@v1
-      with: 
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1
 
     - name: Setting packer logs to Verbose
       run: export PACKER_LOG=1
@@ -60,5 +50,41 @@ jobs:
       run: packer build aws-linux-ami.pkr.hcl
 
     - name: Printing the contents of Directory
-      run: ls -l
+      run: ls -al
+
+
+    - name: Build Deployment Artifact
+      run: |
+        mkdir codedeploy_artifact
+        zip -r ${{ env.ARTIFACT_NAME }} ./*
+        pwd
+        ls -al
+        mv ${{ env.ARTIFACT_NAME }} codedeploy_artifact/
+        ls -al
+        pwd
+        cd codedeploy_artifact/
+        ls -al
+        pwd
+        cd ..
+        ls -al
+        pwd
+
+
+    - name: Running test cases on featureBranch
+      run: npm ci
+      
+    -  run: npm run build --if-present
+    -  run: npm test
+    # -  run: npm run zip
+
+    - name: AWS credentials 
+      uses: aws-actions/configure-aws-credentials@v1
+      with: 
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region:  ${{ env.AWS_REGION }}
+
+    - name: copy Artifact to s3
+      run: |
+        aws s3 sync ./codedeploy_artifact s3://${{secrets.s3_CODE_DEPLOY_BUCKET}}
     

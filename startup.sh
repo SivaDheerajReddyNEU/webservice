@@ -13,6 +13,19 @@ sudo yum update -y
 print_command_info PATH-SET-LINUX
 PATH=/usr/bin:/usr/local/sbin:/sbin:/bin:/usr/sbin:/usr/local/bin:/opt/aws/bin:/root/bin
 
+#cleaning up old caching agent info 
+CODEDEPLOY_BIN="/opt/codedeploy-agent/bin/codedeploy-agent"
+$CODEDEPLOY_BIN stop
+yum erase codedeploy-agent -y
+
+#installing code deploy
+sudo yum install ruby
+cd /home/ec2-user
+wget https://aws-codedeploy-us-east-1.s3.us-east-1.amazonaws.com/latest/install
+chmod +x ./install
+sudo ./install auto
+sudo service codedeploy-agent status
+
 
 #installing node server
 curl -sL https://rpm.nodesource.com/setup_16.x | sudo -E bash - 
@@ -22,12 +35,12 @@ sudo yum install nodejs --enablerepo=nodesource -y
 print_command_info LISTING-TMP-FOLDER-FILES
 sudo ls -l /tmp
 
-#settingup node
-print_command_info SETTING-NODE-FILES
-mkdir webserver
-unzip /tmp/webserver -d webserver/
-cd webserver
-npm ci
+# #settingup node
+# print_command_info SETTING-NODE-FILES
+# mkdir webserver
+# unzip /tmp/webserver -d webserver/
+# cd webserver
+# npm ci
 
 # Changing permissions for running startup script
 print_command_info CHANGING-PERMISSIONS-FOR-STARTUP-SCRIPT
