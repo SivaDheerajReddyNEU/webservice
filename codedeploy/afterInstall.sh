@@ -7,6 +7,6 @@ ls
 cd
 pwd 
 ls
-unzip /tmp/webserver.zip ./
+unzip /tmp/webserver.zip -d ./
 pwd 
 ls
