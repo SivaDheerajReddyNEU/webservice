@@ -9,7 +9,7 @@ packer {
 
 
 source "amazon-ebs" "customWebApp" {
-  ami_name               = "webserver_codedeploy"
+  ami_name               = "webserver"
   ami_description        = "This ami is custom used for deploying the node application with mysql database"
   instance_type          = "t2.micro"
   region                 = "us-east-1"
