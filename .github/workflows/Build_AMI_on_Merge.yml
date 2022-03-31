@@ -82,6 +82,12 @@ jobs:
     -  run: npm test
     # -  run: npm run zip
 
+    - name: AWS credentials 
+      uses: aws-actions/configure-aws-credentials@v1
+      with: 
+        aws-access-key-id: ${{ secrets.AWS_GH_DEMO_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_GH_DEMO_SECRET_ACCESS_KEY }}
+        aws-region:  ${{ env.AWS_REGION }}
    
     - name: Copy Artifact to s3
       run: |
