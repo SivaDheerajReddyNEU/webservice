@@ -49,8 +49,12 @@ jobs:
     - name: Running Packer template validation
       run: packer validate aws-linux-ami.pkr.hcl
     
+    
     - name: Printing the contents of Directory before Packer build
       run: ls -l
+
+    - name: Building Packer Template
+      run: packer build aws-linux-ami.pkr.hcl
 
     - name: Printing the contents of Directory
       run: ls -al
