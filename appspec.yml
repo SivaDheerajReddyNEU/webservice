@@ -3,6 +3,7 @@ os: linux
 files:
   - source: ./*
     destination: /tmp/webserver/
+    
 hooks:
   AfterInstall:
     - location: ./codedeploy/afterInstall.sh

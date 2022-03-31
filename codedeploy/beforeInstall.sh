@@ -2,12 +2,12 @@
 
 sudo systemctl stop application_boot.service
 pwd 
-ls -al
+ls
 cd
 pwd 
-ls -al
+ls
 rm -rf webserver
 pwd 
-ls -al
+ls
 rm -rf /tmp/webserver
 mkdir /tmp/webserver
