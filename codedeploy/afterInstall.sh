@@ -3,7 +3,7 @@
 sudo systemctl stop application_boot.service
 
 
-mv -r ./* /tmp/webserver/
+mv  ./* /tmp/webserver/
 cd
 mkdir webserver
-mv -r /tmp/webserver ./webserver
+mv  /tmp/webserver ./webserver
