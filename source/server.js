@@ -36,10 +36,10 @@ router.get('/healthz', (req, res) => {
   logger.info('inside get request');
   res.send();
 });
-router.get('/heal', (req, res) => {
-  logger.info('inside get request');
-  res.send();
-});
+// router.get('/heal', (req, res) => {
+//   logger.info('inside get request');
+//   res.send();
+// });
 app.use('/v1', router);
 router.get('*', (req, res) => {
   res.status(400);
