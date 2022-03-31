@@ -97,7 +97,7 @@ jobs:
        output=$(aws deploy list-applications    \
           --region ${{ env.AWS_REGION }}   \
           --output json)
-        
+       echo $output
 
     - name: calling AWS code Deployment
       run: |
