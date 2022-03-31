@@ -6,7 +6,7 @@
     "dev": "node_modules/nodemon/bin/nodemon.js --trace-warnings source/main.js > logs.txt",
     "test": "node_modules/mocha/bin/mocha test/test.js",
     "start": "node source/main.js",
-    "zip": "zip -r webserver.zip ./*"
+    "zip": "sh createzip.sh"
   },
   "dependencies": {
     "aws-sdk": "^2.1087.0",
