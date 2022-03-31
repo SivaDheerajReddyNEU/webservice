@@ -1,0 +1,17 @@
+version: 0.0
+os: linux
+
+hooks:
+  AfterInstall:
+    - location: ./codedeploy/afterInstall.sh
+      timeout: 180
+      runas: root
+  ApplicationStart:
+    - location: ./codedeploy/applicationStart.sh
+      timeout: 180
+      runas: root
+  BeforeInstall:
+    - location: ./codedeploy/beforeInstall.sh
+      timeout: 180
+      runas: root
+  
