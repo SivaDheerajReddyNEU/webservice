@@ -51,7 +51,7 @@ jobs:
     
     - name: Printing the contents of Directory before Packer build
       run: ls -l
-      
+
     - name: Printing the contents of Directory
       run: ls -al
 
@@ -59,7 +59,8 @@ jobs:
     - name: Build Deployment Artifact
       run: |
         mkdir codedeploy_artifact
-        zip -r ${{ env.ARTIFACT_NAME }} ./*
+        
+        zip -r ${{ env.ARTIFACT_NAME }} ./webserver.zip ./codedeploy/* appspec.yml
         pwd
         ls -al
         mv ${{ env.ARTIFACT_NAME }} codedeploy_artifact/
