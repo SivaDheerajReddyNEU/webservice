@@ -1,0 +1,20 @@
+version: 0.0
+os: linux
+
+files:
+  - source: ./webserver.zip
+    destination: /tmp/
+hooks:
+  AfterInstall:
+    - location: ./codedeploy/afterInstall.sh
+      timeout: 180
+      runas: ec2-user
+  ApplicationStart:
+    - location: ./codedeploy/applicationStart.sh
+      timeout: 180
+      runas: ec2-user
+  BeforeInstall:
+    - location: ./codedeploy/beforeInstall.sh
+      timeout: 180
+      runas: ec2-user
+  
