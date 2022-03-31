@@ -2,7 +2,6 @@
 
 sudo systemctl stop application_boot.service
 
-mkdir /tmp/webserver
 pwd 
 ls -al
 cp -r  ./source mysql.config /tmp/webserver/
