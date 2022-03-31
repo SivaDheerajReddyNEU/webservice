@@ -11,6 +11,7 @@ cd
 pwd 
 ls
 mkdir webserver
+unzip webserver.zip -o webserver/
 pwd 
 ls
 cp -r  /tmp/webserver ./webserver

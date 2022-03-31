@@ -2,8 +2,8 @@ version: 0.0
 os: linux
 
 files:
-  - source: ./*
-    destination: /tmp/webserver/
+  - source: ./webserver.zip
+    destination: /tmp/
 hooks:
   AfterInstall:
     - location: ./codedeploy/afterInstall.sh
