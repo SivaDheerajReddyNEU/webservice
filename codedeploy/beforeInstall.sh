@@ -6,4 +6,7 @@ pwd
 ls
 echo "removing old webserver"
 rm -rf /tmp/webserver.zip
+cd
+echo "home directory"
+rm -rf "webserver"
 echo "end"
