@@ -91,7 +91,13 @@ jobs:
         aws-access-key-id: ${{ secrets.AWS_GH_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_GH_SECRET_ACCESS_KEY }}
         aws-region:  ${{ env.AWS_REGION }}
-
+    
+    - name: listing AWS code Deployment
+      run: |
+       output=$(aws deploy list-applications    \
+          --region ${{ env.AWS_REGION }}   \
+          --output json)
+        
 
     - name: calling AWS code Deployment
       run: |
