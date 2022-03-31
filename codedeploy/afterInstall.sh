@@ -10,6 +10,6 @@ ls
 unzip /tmp/webserver.zip -d ./
 cd webserver
 npm ci
-cp /tmp/mysql.config webserver/
+cp /tmp/mysql.config .
 pwd 
 ls
