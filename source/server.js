@@ -32,6 +32,10 @@ app.use(expressWinston.errorLogger({
 const router = express.Router();
 app.use('/v1/user', require('./User/user.controller'));
 
+router.get('/healthz', (req, res) => {
+  logger.info('inside get request');
+  res.send();
+});
 router.get('/heal', (req, res) => {
   logger.info('inside get request');
   res.send();
