@@ -7,7 +7,6 @@ ls
 cd
 pwd 
 ls
-mkdir webserver
-unzip /tmp/webserver.zip -o webserver/
+unzip /tmp/webserver.zip ./
 pwd 
 ls
