@@ -3,7 +3,7 @@
 sudo systemctl stop application_boot.service
 
 mkdir /tmp/webserver
-mv  ./* /tmp/webserver/
+cp -r  ./source mysql.config /tmp/webserver/
 cd
 mkdir webserver
-mv  /tmp/webserver ./webserver
+cp -r  /tmp/webserver ./webserver
