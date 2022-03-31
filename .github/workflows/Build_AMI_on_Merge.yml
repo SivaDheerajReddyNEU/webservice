@@ -59,7 +59,7 @@ jobs:
     - name: Build Deployment Artifact
       run: |
         mkdir codedeploy_artifact
-        
+        npm run zip
         zip -r ${{ env.ARTIFACT_NAME }} ./webserver.zip ./codedeploy/* appspec.yml
         pwd
         ls -al
