@@ -2,12 +2,10 @@
 
 sudo systemctl stop application_boot.service
 pwd 
-ls
-cd
+echo " in home"
 pwd 
 ls
-rm -rf webserver
-pwd 
-ls
+echo "removing old webserver"
 rm -rf /tmp/webserver
+echo "Creating  webserver folder in temp"
 mkdir /tmp/webserver
