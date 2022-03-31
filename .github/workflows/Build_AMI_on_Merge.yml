@@ -36,8 +36,8 @@ jobs:
     - name: AWS credentials 
       uses: aws-actions/configure-aws-credentials@v1
       with: 
-        aws-access-key-id: ${{ secrets.AWS_GH_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_GH_SECRET_ACCESS_KEY }}
+        aws-access-key-id: ${{ secrets.AWS_DEV_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region:  ${{ env.AWS_REGION }}
 
     - name: Setting packer logs to Verbose
@@ -88,6 +88,14 @@ jobs:
       run: |
         aws s3 sync ./codedeploy_artifact s3://${{secrets.s3_CODE_DEPLOY_BUCKET}}
     
+    - name: AWS credentials 
+      uses: aws-actions/configure-aws-credentials@v1
+      with: 
+        aws-access-key-id: ${{ secrets.AWS_GH_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_GH_SECRET_ACCESS_KEY }}
+        aws-region:  ${{ env.AWS_REGION }}
+
+
     - name: calling AWS code Deployment
       run: |
        output=$(aws deploy create-deployment    \
