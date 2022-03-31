@@ -8,5 +8,7 @@ cd
 pwd 
 ls
 unzip /tmp/webserver.zip -d ./
+cd webserver
+npm ci
 pwd 
 ls
