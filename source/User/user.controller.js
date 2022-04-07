@@ -1,12 +1,12 @@
 const multer  = require('multer');
 const express = require('express');
+const statsdClient = require('./../util/statsdUtil.js');
 const router = express.Router();
 let upload  = multer({ storage: multer.memoryStorage() });
-
 const logger = require('./../log/logger');
 global.logger=logger;
 // const validateRequest = require('./../security/validate-request');
-const authorize = require('../security/authorize.js')
+const authorize = require('../security/authorize.js');
 const userService = require('./user.service');
 const userInfoService = require('./userInfo/userInfo.service');
 const {validateCreateUser,validateUpdateUser} = require('./../security/validation');
@@ -15,29 +15,32 @@ router.get('/self/pic',authorize,getProfilePicDetails);
 router.delete('/self/pic',authorize,deleteProfilePic);
 router.get('/self',authorize,getUserDetails)
 router.put('/self',authorize,validateUpdateUser,updateUserDetails);
-
 router.post('/',validateCreateUser,createUser);
 module.exports = router;
 
 function getUserDetails(req,res,next){
+  statsdClient.increment('get_/self');
   userService.getUserDetails({username:req.ctx.user.name})
   .then(data => res.json(data))
   .catch(next)
 }
 
 function updateUserDetails(req,res,next){
+  statsdClient.increment('put_/self');
   userService.updateUser(req.body,req.ctx.user)
   .then(data => {res.status(204);res.json(data)})
   .catch(next)
 }
 
 function createUser(req,res,next){
+  statsdClient.increment('post_/self');
   userService.createUser(req.body)
   .then(data => {res.status(201);res.json(data)})
   .catch(data => {console.log(data);res.sendStatus(400);next()});
 }
 
 function addProfilePic(req,res,next){
+  statsdClient.increment('post_/self/pic');
   logger.info("username:");
   logger.info(req.ctx.user.name)
   logger.info('body:');
@@ -57,6 +60,7 @@ function addProfilePic(req,res,next){
 
 function getProfilePicDetails(req,res,next){
   try{
+    statsdClient.increment('get_/self/pic');
   userInfoService.getProfilePicDetails({username:req.ctx.user.name})
   .then(data => {
     logger.info('got the profile data');
@@ -76,6 +80,7 @@ function getProfilePicDetails(req,res,next){
 }
 
 function deleteProfilePic(req, res, next){
+  statsdClient.increment('delete_/self/pic');
 logger.info('inside delete profile pic');
   userInfoService.deleteProfilePic({username:req.ctx.user.name})
   .then(data => {res.status(204);res.send()})

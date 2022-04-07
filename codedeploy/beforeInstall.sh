@@ -10,3 +10,4 @@ cd
 echo "home directory"
 rm -rf "webserver"
 echo "end"
+sudo rm /tmp/amazon-cloudwatch-agent.json

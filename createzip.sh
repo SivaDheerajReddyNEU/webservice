@@ -6,5 +6,6 @@ cp mysql.config webserver/
 cp package.json webserver/
 cp package-lock.json webserver/
 cp README.md webserver/
+cp amazon-cloudwatch-agen.json .webserver/
 cp -r codedeploy webserver/
 zip -r webserver.zip webserver/
