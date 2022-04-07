@@ -1,4 +1,3 @@
-const StatsD = require('node-statsd');
-const client = new StatsD({host:'localhost',port:8125});
-
+var Client = require('node-statsd-client').Client;
+var client = new Client("localhost", 8125);
 module.export= client;
