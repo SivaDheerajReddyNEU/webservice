@@ -26,7 +26,6 @@ chmod +x ./install
 sudo ./install auto
 sudo service codedeploy-agent status
 
-
 #installing node server
 curl -sL https://rpm.nodesource.com/setup_16.x | sudo -E bash - 
 sudo yum install nodejs --enablerepo=nodesource -y
@@ -35,12 +34,10 @@ sudo yum install nodejs --enablerepo=nodesource -y
 print_command_info LISTING-TMP-FOLDER-FILES
 sudo ls -l /tmp
 
-# #settingup node
-# print_command_info SETTING-NODE-FILES
-# mkdir webserver
-# unzip /tmp/webserver -d webserver/
-# cd webserver
-# npm ci
+#installing cloud watch
+print_command_info INSTALLING-CLOUD-WATCH-AGENT
+sudo yum install amazon-cloudwatch-agent -y
+sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c file:/tmp/amazon-cloudwatch-agent.json -s
 
 # Changing permissions for running startup script
 print_command_info CHANGING-PERMISSIONS-FOR-STARTUP-SCRIPT
