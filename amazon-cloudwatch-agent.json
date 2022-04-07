@@ -20,8 +20,8 @@
           "files": {
               "collect_list": [
                   {
-                      "file_path": "/tmp/webapp.log",
-                      "log_group_name": "weapp-metrics",
+                      "file_path": "/home/ec2-user/webserver/log.txt",
+                      "log_group_name": "webapp-metrics",
                       "log_stream_name": "webapp"
                   }
               ]
