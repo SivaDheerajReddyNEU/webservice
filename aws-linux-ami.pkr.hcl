@@ -41,6 +41,11 @@ build {
   }
 
   provisioner "file" {
+    source  = "amazon-cloudwatch-agent.json"
+    destination   = "/tmp/amazon-cloudwatch-agent.json"
+  }
+
+  provisioner "file" {
     source      = "node_startup.sh"
     destination = "/tmp/node_startup.sh"
   }
@@ -50,10 +55,6 @@ build {
   }
 
 
-  provisioner "file" {
-    source  = "amazon-cloudwatch-agent.json"
-    destination   = "/tmp/amazon-cloudwatch-agent.json"
-  }
 
   post-processor "manifest" {
     output     = "manifest.json"

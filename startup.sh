@@ -50,5 +50,6 @@ print_command_info CHANGING-PERMISSIONS-OF-APPLICATION-BOOT-FILE
 sudo chmod 777 /etc/systemd/system/application_boot.service
 print_command_info ENABLING-BOOT-UP-FOR-APP
 sudo systemctl enable application_boot.service
+sudo systemctl enable amazon-cloudwatch-agent.service
 
 
