@@ -50,8 +50,8 @@ jobs:
       run: packer validate aws-linux-ami.pkr.hcl
     
     - name: Building Packer Template
-      run: packer build aws-linux2.pkr.hcl
-      
+      run: packer build aws-linux-ami.pkr.hcl
+
     - name: Printing the contents of Directory before Packer build
       run: ls -l
 
