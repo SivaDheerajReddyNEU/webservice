@@ -9,6 +9,7 @@ pwd
 ls
 unzip /tmp/webserver.zip -d ./
 cd webserver
+cp amazon-cloudwatch-agent.json /tmp/amazon-cloudwatch-agent.json
 npm ci
 cp /tmp/mysql.config .
 pwd 
