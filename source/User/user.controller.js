@@ -19,6 +19,7 @@ router.post('/',validateCreateUser,createUser);
 module.exports = router;
 
 function getUserDetails(req,res,next){
+  console.log(statsdClient);
   statsdClient.increment('get_/self');
   userService.getUserDetails({username:req.ctx.user.name})
   .then(data => res.json(data))

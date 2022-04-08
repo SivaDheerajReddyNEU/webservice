@@ -1,3 +1,5 @@
-var Client = require('node-statsd-client').Client;
-var client = new Client("localhost", 8125);
-module.exports= client;
+const StatsD = require('hot-shots'),
+client = new StatsD({
+    port: 8125
+});
+module.exports = client;
