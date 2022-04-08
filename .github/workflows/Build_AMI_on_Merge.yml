@@ -18,6 +18,9 @@ on:
 jobs:
   ami_creation_job:
     runs-on: ubuntu-latest
+    defaults:
+       run:
+         working-directory: ./webservice/
     strategy:
       matrix:
         node-version: [16.x]
