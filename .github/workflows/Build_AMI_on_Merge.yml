@@ -19,6 +19,7 @@ jobs:
   ami_creation_job:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v2
     - name: Setting up Hashicorp Packer
       uses: hashicorp-contrib/setup-packer@v1
       with:
