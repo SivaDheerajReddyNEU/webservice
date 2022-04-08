@@ -90,35 +90,3 @@ jobs:
         echo $output
         dId=$(echo $output | jq -r '.deploymentId')
         aws deploy wait deployment-successful --deployment-id $dId
-
-  ami_creation_job:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [16.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-    
-    steps:
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-        
-    - name: Setting up Hashicorp Packer
-      uses: hashicorp-contrib/setup-packer@v1
-      with:
-        packer-version: 1.7.10
-
-    - name: AWS credentials 
-      uses: aws-actions/configure-aws-credentials@v1
-      with: 
-        aws-access-key-id: ${{ secrets.AWS_GH_DEV_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_GH_DEV_SECRET_ACCESS_KEY }}
-        aws-region:  ${{ env.AWS_REGION }}
-
-    - name: Setting packer logs to Verbose
-      run: export PACKER_LOG=1
-
-    - name: Installing packer provisioners
-      run: packer init aws-linux-ami.pkr.hcl
