@@ -1,3 +1,3 @@
 var Client = require('node-statsd-client').Client;
 var client = new Client("localhost", 8125);
-module.export= client;
+module.exports= client;

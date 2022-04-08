@@ -2,32 +2,34 @@
 name: Building AMI on Merge
 
 env:
-  ARTIFACT_NAME: csye6225-webapp-${{github.sha}}.zip
-  CODEDEPLOY_APPLICATION_NAME: webapp
-  CODEDEPLOY_APPLICATION_DEPLOYMENT_GROUP_NAME: webapp
   AWS_REGION: us-east-1
 on:
   push:
     branches: [ main ]
+    paths:
+      - aws-linux-ami.pkr.hcl
+      - package.json
+      - startup.sh
+      - application_boot.service
+      - amazon-cloudwatch-agent.json
+      - node_startup.sh
+
 
 jobs:
-  build:
-
+  ami_creation_job:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [16.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
+    
     steps:
-    - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-
+        
     - name: Setting up Hashicorp Packer
       uses: hashicorp-contrib/setup-packer@v1
       with:
@@ -45,69 +47,3 @@ jobs:
 
     - name: Installing packer provisioners
       run: packer init aws-linux-ami.pkr.hcl
-
-    - name: Running Packer template validation
-      run: packer validate aws-linux-ami.pkr.hcl
-    
-    # - name: Building Packer Template
-    #   run: packer build aws-linux-ami.pkr.hcl
-
-    - name: Printing the contents of Directory before Packer build
-      run: ls -l
-
-    - name: Printing the contents of Directory
-      run: ls -al
-
-
-    - name: Build Deployment Artifact
-      run: |
-        mkdir codedeploy_artifact
-        npm run zip
-        zip -r ${{ env.ARTIFACT_NAME }} ./webserver.zip ./codedeploy/* appspec.yml
-        pwd
-        ls -al
-        mv ${{ env.ARTIFACT_NAME }} codedeploy_artifact/
-        ls -al
-        pwd
-        cd codedeploy_artifact/
-        ls -al
-        pwd
-        cd ..
-        ls -al
-        pwd
-
-
-    - name: Running test cases on featureBranch
-      run: npm ci
-      
-    -  run: npm run build --if-present
-    -  run: npm test
-    # -  run: npm run zip
-
-    - name: AWS credentials 
-      uses: aws-actions/configure-aws-credentials@v1
-      with: 
-        aws-access-key-id: ${{ secrets.AWS_GH_DEMO_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_GH_DEMO_SECRET_ACCESS_KEY }}
-        aws-region:  ${{ env.AWS_REGION }}
-   
-    - name: Copy Artifact to s3
-      run: |
-        aws s3 sync ./codedeploy_artifact s3://${{secrets.S3_CODE_DEPLOY_BUCKET}}
-    
- 
-
-    - name: calling AWS code Deployment
-      run: |
-       output=$(aws deploy create-deployment    \
-          --application-name ${{ env.CODEDEPLOY_APPLICATION_NAME }}  \
-          --deployment-config-name CodeDeployDefault.AllAtOnce    \
-          --deployment-group-name ${{ env.CODEDEPLOY_APPLICATION_DEPLOYMENT_GROUP_NAME }}    \
-          --description "CSYE6225 - CodeDeploy"   \
-          --s3-location bucket=${{ secrets.S3_CODE_DEPLOY_BUCKET }},key=${{ env.ARTIFACT_NAME }},bundleType=zip   \
-          --region ${{ env.AWS_REGION }}   \
-          --output json)
-        
-        echo $output
-        dId=$(echo $output | jq -r '.deploymentId')
-        aws deploy wait deployment-successful --deployment-id $dId
