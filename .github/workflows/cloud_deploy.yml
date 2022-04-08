@@ -1,5 +1,5 @@
 
-name: Building AMI on Merge
+name: Code Deploy
 
 env:
   ARTIFACT_NAME: csye6225-webapp-${{github.sha}}.zip
