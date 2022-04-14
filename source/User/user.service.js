@@ -20,6 +20,7 @@ async function createUser(user) {
   await db.User.create(user);
   const det = await db.User.findOne({ where: { username: user.username } })
   let {id,username,first_name,last_name,created_time,updated_time}=det;
+  
   return {id,username,first_name,last_name,created_time,updated_time};
 }
 
@@ -41,6 +42,10 @@ async function updateUser(data,user){
   if(data.updated_time){
     delete user.updated_time;
   }
+  if(data.verified){
+    delete user.verified;
+  }
+  
   if(data.first_name){
     userDetails.first_name = data.first_name
   }
@@ -69,14 +74,21 @@ async function getUserWithHash({username}){
   return await db.User.findOne({ where: { username: username } });
 }
 
-function omitHash(user) {
-  const { hash, ...userWithoutHash } = user;
-  return userWithoutHash;
+
+
+
+async function markUserVerified({username}){
+  const data = await db.User.findOne({ where: { username: username } });
+  db.User.update({
+    verified:true,
+    updated_time:userDetails.updated_time
+    },{where:{username:username}})
 }
 module.exports = {
   // authenticate,
   getUserDetails,
   getUserWithHash,
   updateUser,
-  createUser
+  createUser,
+  markUserVerified
 }

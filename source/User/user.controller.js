@@ -1,9 +1,16 @@
 const multer  = require('multer');
 const express = require('express');
+const DynamoDBUtil =require('./../dynamoDB/dynamoDBUtil.js');
 const statsdClient = require('./../util/statsdUtil.js');
 const router = express.Router();
 let upload  = multer({ storage: multer.memoryStorage() });
 const logger = require('./../log/logger');
+const SNSUtil = require('./../sns/SNSUtil');
+const fs = require('fs');
+const path = require("path");
+let rawdata = fs.readFileSync(path.resolve(__dirname, "../../mysql.config"));
+let config = JSON.parse(rawdata);
+
 global.logger=logger;
 // const validateRequest = require('./../security/validate-request');
 const authorize = require('../security/authorize.js');
@@ -16,6 +23,7 @@ router.delete('/self/pic',authorize,deleteProfilePic);
 router.get('/self',authorize,getUserDetails)
 router.put('/self',authorize,validateUpdateUser,updateUserDetails);
 router.post('/',validateCreateUser,createUser);
+router.post('/verify',verifyUser);
 module.exports = router;
 
 function getUserDetails(req,res,next){
@@ -33,11 +41,40 @@ function updateUserDetails(req,res,next){
   .catch(next)
 }
 
-function createUser(req,res,next){
+async function createUser(req,res,next){
   statsdClient.increment('post_/self');
   userService.createUser(req.body)
   .then(data => {res.status(201);res.json(data)})
   .catch(data => {console.log(data);res.sendStatus(400);next()});
+  await generateNSendVerificationLink(username);
+  
+}
+
+async function generateNSendVerificationLink(user){
+  const token =   uuid.v4();
+  DynamoDBUtil.addEntry(user,token);
+  const email=user.username,userName=user.first_name;
+  let verifyLink = `http://${config.domain}/verifyEmail?email=${email}&token=${token}`;
+  
+  //toEmail,verifyLink, userName
+  await SNSUtil.sendEmail({toEmail:email,userName:userName,verifyLink:verifyLink});
+}
+
+function verifyUser(req,res,next){
+  statsdClient.increment('get_/verify');
+  console.log(req.params);
+  const email= req.params.email;
+  const token= req.params.token;
+  if(DynamoDBUtil.getEntry(email,token)!=null){
+    userService.markUserVerified({username:req.params.email})
+    .then(data => {res.status(201);res.json(data)})
+    .catch(data => {console.log(data);res.sendStatus(400);next()});
+  }
+  else{
+    console.log("entry not present");
+    res.sendStatus(400);
+    next()
+  }
 }
 
 function addProfilePic(req,res,next){
