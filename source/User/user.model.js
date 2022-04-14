@@ -45,9 +45,9 @@ function model(sequelize){
       allowNull: false
     },
     verified:{
-      type:DataTypes.BOOLEAN,
+      type:DataTypes.STRING,
       allowNull: false,
-      default:false
+      default:"false"
     }
   }
   return sequelize.define('User',attributes,options);

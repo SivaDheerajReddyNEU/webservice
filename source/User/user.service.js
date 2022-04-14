@@ -83,7 +83,7 @@ async function markUserVerified({username}){
   console.log(data);
   let date_ob = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
   const temp = await db.User.update({
-    verified:true,
+    verified:"true",
     updated_time:date_ob
     },{where:{username:username}});
   console.log(temp);
