@@ -71,11 +71,11 @@ catch(e){
 
 function verifyUser(req,res,next){
   statsdClient.increment('get_/verify');
-  console.log(req.params);
-  const email= req.params.email;
-  const token= req.params.token;
+  console.log(req.query);
+  const email= req.query.email;
+  const token= req.query.token;
   if(DynamoDBUtil.getEntry(email,token)!=null){
-    userService.markUserVerified({username:req.params.email})
+    userService.markUserVerified({username:req.query.email})
     .then(data => {res.status(201);res.json(data)})
     .catch(data => {console.log(data);res.sendStatus(400);next()});
   }
@@ -108,19 +108,19 @@ function addProfilePic(req,res,next){
 function getProfilePicDetails(req,res,next){
   try{
     statsdClient.increment('get_/self/pic');
-  userInfoService.getProfilePicDetails({username:req.ctx.user.name})
-  .then(data => {
-    logger.info('got the profile data');
-    res.status(200);
-    res.json(data);
-    res.send()
-  })
-  .catch(data => {
-    logger.fatal(data);
-    res.status(404);
-    res.send()
-    next();
-  });
+    userInfoService.getProfilePicDetails({username:req.ctx.user.name})
+    .then(data => {
+      logger.info('got the profile data');
+      res.status(200);
+      res.json(data);
+      res.send()
+    })
+    .catch(data => {
+      logger.fatal(data);
+      res.status(404);
+      res.send()
+      next();
+    });
 }catch(e){
   console.log(e)
 }
@@ -128,7 +128,7 @@ function getProfilePicDetails(req,res,next){
 
 function deleteProfilePic(req, res, next){
   statsdClient.increment('delete_/self/pic');
-logger.info('inside delete profile pic');
+  logger.info('inside delete profile pic');
   userInfoService.deleteProfilePic({username:req.ctx.user.name})
   .then(data => {res.status(204);res.send()})
   .catch(data => {logger.fatal(data);res.sendStatus(404);next()});
