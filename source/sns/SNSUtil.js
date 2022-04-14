@@ -24,11 +24,7 @@ const  postMessage = async function(message){
     Message:message,
     TopicArn:topic
   }
-<<<<<<< HEAD
   console.log("config before calling lambda:");
-=======
-  config.log("config before calling lambda:")
->>>>>>> f7d469562298e7651ec46cf514c7a2cb689c9e1c
   console.log(domain)
   console.log(fromEmail)
   return await sns.publish(params).promise(); 
