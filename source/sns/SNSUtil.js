@@ -7,9 +7,13 @@ let rawdata = fs.readFileSync(path.resolve(__dirname, "../../mysql.config"));
 
 let config = JSON.parse(rawdata);
 console.log(config);
-const domain = config.domain;
-const fromEmail=config.fromEmail
+let domain = config.domain;
+let fromEmail=config.fromEmail
+console.log(domain)
+console.log(fromEmail)
 
+domain='prod.dheerajreddy.me';
+fromEmail='no-reply@prod.dheerajreddy.me';
 let sns = new AWS.SNS({
   region:S3_BUCKET_REGION
 });

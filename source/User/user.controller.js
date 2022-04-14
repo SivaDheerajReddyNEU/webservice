@@ -47,9 +47,7 @@ async function createUser(req,res,next){
   userService.createUser(req.body)
   .then(async data => {await generateNSendVerificationLink(data); return data;})
   .then(data => {res.status(201);res.json(data)})
-  
   .catch(data => {console.log(data);res.sendStatus(400);next()});
-  
 }
 
 const  generateNSendVerificationLink =async function (user){
