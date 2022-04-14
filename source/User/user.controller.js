@@ -10,6 +10,7 @@ const fs = require('fs');
 const path = require("path");
 let rawdata = fs.readFileSync(path.resolve(__dirname, "../../mysql.config"));
 let config = JSON.parse(rawdata);
+const uuid = require('uuid');
 
 global.logger=logger;
 // const validateRequest = require('./../security/validate-request');
@@ -44,13 +45,14 @@ function updateUserDetails(req,res,next){
 async function createUser(req,res,next){
   statsdClient.increment('post_/self');
   userService.createUser(req.body)
+  .then(async data => {await generateNSendVerificationLink(data); return data;})
   .then(data => {res.status(201);res.json(data)})
+  
   .catch(data => {console.log(data);res.sendStatus(400);next()});
-  await generateNSendVerificationLink(username);
   
 }
 
-async function generateNSendVerificationLink(user){
+const  generateNSendVerificationLink =async function (user){
   const token =   uuid.v4();
   DynamoDBUtil.addEntry(user,token);
   const email=user.username,userName=user.first_name;
