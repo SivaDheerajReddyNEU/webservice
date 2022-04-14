@@ -1,7 +1,6 @@
 const uuid = require('uuid');
 const bcrypt = require('bcrypt');
 const db = require('./../db/db');
-const uuid = require('uuid');
 
 async function createUser(user) {
   await db.initialize();

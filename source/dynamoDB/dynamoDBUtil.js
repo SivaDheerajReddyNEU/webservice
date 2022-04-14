@@ -11,7 +11,7 @@ const table = "userVerificationTesting";
 
 const SECONDS_IN_MINUTE = 60 ;
 
-export const addEntry = async function(email,token){
+const addEntry = async function(email,token){
   const secondsSinceEpoch = Math.round(Date.now() / 1000);
   const expirationTime = secondsSinceEpoch + 5 * SECONDS_IN_MINUTE;
   console.log(expirationTime);
@@ -26,7 +26,7 @@ export const addEntry = async function(email,token){
   return await docClient.put(params); 
 }
 
-export const getEntry = async function(email,token){
+const getEntry = async function(email,token){
   var params = {
     TableName: table,
     Item: {
@@ -36,4 +36,8 @@ export const getEntry = async function(email,token){
   };
 
   return await docClient.get(params); 
+}
+module.exports = {
+  addEntry,
+  getEntry
 }
