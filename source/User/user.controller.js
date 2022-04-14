@@ -55,9 +55,18 @@ async function generateNSendVerificationLink(user){
   DynamoDBUtil.addEntry(user,token);
   const email=user.username,userName=user.first_name;
   let verifyLink = `http://${config.domain}/verifyEmail?email=${email}&token=${token}`;
-  
+  try{
+    await SNSUtil.sendEmail({toEmail:email,userName:userName,verifyLink:verifyLink});
+}
+catch(e){
+  console.log(e);
+
+  console.log("error while sending mail");
+  console.log({toEmail:email,userName:userName,verifyLink:verifyLink});
+}
+
   //toEmail,verifyLink, userName
-  await SNSUtil.sendEmail({toEmail:email,userName:userName,verifyLink:verifyLink});
+  
 }
 
 function verifyUser(req,res,next){
