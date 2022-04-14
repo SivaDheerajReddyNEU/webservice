@@ -11,6 +11,7 @@ const domain = config.domain;
 const fromEmail=config.fromEmail
 
 let sns = new AWS.SNS({
+  region:S3_BUCKET_REGION
 });
 
 const topic = "arn:aws:sns:us-east-1:101417083507:emailTopicTesting";//config.topicARN;
