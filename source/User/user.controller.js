@@ -24,7 +24,7 @@ router.delete('/self/pic',authorize,deleteProfilePic);
 router.get('/self',authorize,getUserDetails)
 router.put('/self',authorize,validateUpdateUser,updateUserDetails);
 router.post('/',validateCreateUser,createUser);
-router.post('/verify',verifyUser);
+router.get('/verify',verifyUser);
 module.exports = router;
 
 function getUserDetails(req,res,next){
@@ -54,7 +54,7 @@ const  generateNSendVerificationLink =async function (user){
   const token =   uuid.v4();
   DynamoDBUtil.addEntry(user,token);
   const email=user.username,userName=user.first_name;
-  let verifyLink = `http://${config.domain}/verifyEmail?email=${email}&token=${token}`;
+  let verifyLink = `http://${config.domain}/v1/user/verify?email=${email}&token=${token}`;
   try{
     await SNSUtil.sendEmail({toEmail:email,userName:userName,verifyLink:verifyLink});
 }

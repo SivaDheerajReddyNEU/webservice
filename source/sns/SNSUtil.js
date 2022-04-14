@@ -24,6 +24,7 @@ const  postMessage = async function(message){
     Message:message,
     TopicArn:topic
   }
+  
   console.log("config before calling lambda:");
   console.log(domain)
   console.log(fromEmail)
