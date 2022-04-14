@@ -3,6 +3,7 @@ const winston = require('winston');
 const  expressWinston = require('express-winston');
 const statsdClient = require('./util/statsdUtil.js');
 const app = express();
+const statsdClient = require('./util/statsdUtil.js');
 app.use(express.json());
 
 app.use(expressWinston.logger({
