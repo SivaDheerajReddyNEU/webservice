@@ -20,11 +20,11 @@ async function authorize (req,res,next){
     return
   }
 
-  // if (user.verified === false || user.verified === "false")
-  // {
-  //   res.sendStatus(401);
-  //   return
-  // }
+  if (user.verified === false || user.verified === "false")
+  {
+    res.sendStatus(401);
+    return
+  }
 
   console.log("authentication user details")
   // console.log(user) 

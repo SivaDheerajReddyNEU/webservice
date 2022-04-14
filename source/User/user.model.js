@@ -44,11 +44,11 @@ function model(sequelize){
       type: DataTypes.STRING,
       allowNull: false
     },
-    // verified:{
-    //   type:DataTypes.BOOLEAN,
-    //   allowNull: false,
-    //   default:false
-    // }
+    verified:{
+      type:DataTypes.BOOLEAN,
+      allowNull: false,
+      default:false
+    }
   }
   return sequelize.define('User',attributes,options);
 }

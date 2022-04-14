@@ -2,12 +2,14 @@ let AWS = require('aws-sdk');
 const {S3_BUCKET_REGION} = require('../util/constants');
 
 let docClient = new AWS.DynamoDB.DocumentClient({
-  accessKeyId:"AKIARPHHN4JZ3AKIYB6I",
-  secretAccessKey:"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",
   region:S3_BUCKET_REGION
 });
+const fs = require('fs');
+const path = require("path");
+let rawdata = fs.readFileSync(path.resolve(__dirname, "../../mysql.config"));
+let config = JSON.parse(rawdata);
 
-const table = "userVerificationTesting";
+const table = config.dynamoDBTable;
 
 const SECONDS_IN_MINUTE = 60 ;
 
