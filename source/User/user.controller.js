@@ -76,7 +76,7 @@ function verifyUser(req,res,next){
   const token= req.query.token;
   if(DynamoDBUtil.getEntry(email,token)!=null){
     userService.markUserVerified({username:req.query.email})
-    .then(data => {res.status(201);res.json(data);next()})
+    .then(data => {res.status(201);res.json("Account Verified");next()})
     .catch(data => {console.log(data);res.sendStatus(400);next()});
     console.log("marked user as verified")
   }
