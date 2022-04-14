@@ -80,9 +80,10 @@ async function getUserWithHash({username}){
 
 async function markUserVerified({username}){
   const data = await db.User.findOne({ where: { username: username } });
+  let date_ob = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
   db.User.update({
     verified:true,
-    updated_time:userDetails.updated_time
+    updated_time:date_ob
     },{where:{username:username}})
 }
 module.exports = {
