@@ -1,11 +1,19 @@
 const multer  = require('multer');
 const express = require('express');
+<<<<<<< HEAD
 const DynamoDBUtil =require('./../dynamoDB/dynamoDBUtil.js');
+=======
+import * as DynamoDBUtil from './../dynamoDB/dynamoDBUtil.js';
+>>>>>>> 20061006b21fd8509ccf4f06572e32d719b66613
 const statsdClient = require('./../util/statsdUtil.js');
 const router = express.Router();
 let upload  = multer({ storage: multer.memoryStorage() });
 const logger = require('./../log/logger');
+<<<<<<< HEAD
 const SNSUtil = require('./../sns/SNSUtil');
+=======
+import {sendEmail} from './../sns/SNSUtil';
+>>>>>>> 20061006b21fd8509ccf4f06572e32d719b66613
 const fs = require('fs');
 const path = require("path");
 let rawdata = fs.readFileSync(path.resolve(__dirname, "../../mysql.config"));
@@ -57,7 +65,11 @@ async function generateNSendVerificationLink(user){
   let verifyLink = `http://${config.domain}/verifyEmail?email=${email}&token=${token}`;
   
   //toEmail,verifyLink, userName
+<<<<<<< HEAD
   await SNSUtil.sendEmail({toEmail:email,userName:userName,verifyLink:verifyLink});
+=======
+  await sendEmail({toEmail:email,userName:userName,verifyLink:verifyLink});
+>>>>>>> 20061006b21fd8509ccf4f06572e32d719b66613
 }
 
 function verifyUser(req,res,next){

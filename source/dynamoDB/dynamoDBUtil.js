@@ -11,7 +11,11 @@ const table = "userVerificationTesting";
 
 const SECONDS_IN_MINUTE = 60 ;
 
+<<<<<<< HEAD
 const addEntry = async function(email,token){
+=======
+export const addEntry = async function(email,token){
+>>>>>>> 20061006b21fd8509ccf4f06572e32d719b66613
   const secondsSinceEpoch = Math.round(Date.now() / 1000);
   const expirationTime = secondsSinceEpoch + 5 * SECONDS_IN_MINUTE;
   console.log(expirationTime);
@@ -26,7 +30,11 @@ const addEntry = async function(email,token){
   return await docClient.put(params); 
 }
 
+<<<<<<< HEAD
 const getEntry = async function(email,token){
+=======
+export const getEntry = async function(email,token){
+>>>>>>> 20061006b21fd8509ccf4f06572e32d719b66613
   var params = {
     TableName: table,
     Item: {
@@ -37,7 +45,10 @@ const getEntry = async function(email,token){
 
   return await docClient.get(params); 
 }
+<<<<<<< HEAD
 module.exports = {
   addEntry,
   getEntry
 }
+=======
+>>>>>>> 20061006b21fd8509ccf4f06572e32d719b66613

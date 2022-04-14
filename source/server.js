@@ -1,6 +1,7 @@
 const express = require('express');
 const winston = require('winston');
 const  expressWinston = require('express-winston');
+const statsdClient = require('./util/statsdUtil.js');
 const app = express();
 const statsdClient = require('./util/statsdUtil.js');
 app.use(express.json());
@@ -37,10 +38,11 @@ router.get('/healthz', (req, res) => {
   logger.info('inside get request');
   res.send();
 });
-// router.get('/heal', (req, res) => {
-//   logger.info('inside get request');
-//   res.send();
-// });
+ router.get('/heal', (req, res) => {
+   statsdClient.increment('get_/heal');
+   logger.info('inside get request');
+   res.send();
+ });
 app.use('/v1', router);
 router.get('*', (req, res) => {
   res.status(400);
