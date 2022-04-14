@@ -21,7 +21,7 @@ async function authorize (req,res,next){
   }
   console.log("verified status");
   console.log(user);
-  if (user.verified === false || user.verified === "false")
+  if (user.verified === false || user.verified === "false" || user.verified === 0 || user.verified === "0")
   {
     res.sendStatus(401);
     return

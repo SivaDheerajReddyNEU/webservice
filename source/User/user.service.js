@@ -17,7 +17,7 @@ async function createUser(user) {
   user.created_time = date_ob;
   user.updated_time = date_ob;
   user.password = user.hash;
-  user.verified = false;
+  user.verified = "false";
   await db.User.create(user);
   const det = await db.User.findOne({ where: { username: user.username } })
   let {id,username,first_name,last_name,created_time,updated_time}=det;
@@ -83,7 +83,7 @@ async function markUserVerified({username}){
   console.log(data);
   let date_ob = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
   const temp = await db.User.update({
-    verified:"true",
+    verified:"1",
     updated_time:date_ob
     },{where:{username:username}});
   console.log(temp);
