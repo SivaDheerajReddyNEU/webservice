@@ -13,7 +13,7 @@ const fromEmail=config.fromEmail
 let sns = new AWS.SNS({
 });
 
-const topic = config.topicARN;
+const topic = "arn:aws:sns:us-east-1:101417083507:emailTopicTesting";//config.topicARN;
 const  postMessage = async function(message){
   const params={
     Message:message,
