@@ -46,7 +46,9 @@ const getEntry = async function(email,token){
   {
     console.log(e);
 
-  }
+  return await docClient.get(params).promise(); 
+
+}
 }
 
 module.exports = {
