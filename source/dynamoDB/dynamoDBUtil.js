@@ -36,8 +36,19 @@ const getEntry = async function(email,token){
       "token" : token
     }
   };
+  console.log(params)
+  try
+  {
+    let data =  await docClient.get(params).promise(); 
+    console.log(data);
+  }
+  catch(e)
+  {
+    console.log(e);
 
   return await docClient.get(params).promise(); 
+
+}
 }
 
 module.exports = {
