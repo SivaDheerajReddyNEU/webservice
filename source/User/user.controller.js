@@ -69,22 +69,22 @@ catch(e){
   
 }
 
-function verifyUser(req,res,next){
+  async function verifyUser(req,res,next){
   statsdClient.increment('get_/verify');
   console.log(req.query);
   const email= req.query.email;
   const token= req.query.token;
   if(DynamoDBUtil.getEntry(email,token) != null){
-    userService.markUserVerified({username:req.query.email})
-    .then(data => {res.status(201);res.json("Account Verified");next()})
-    .catch(data => {console.log(data);res.sendStatus(400);next()});
+    await userService.markUserVerified({username:req.query.email});
+    res.status(200);
+    res.json('Account Verified');
     console.log("marked user as verified")
   }
   else{
     console.log("entry not present");
     res.sendStatus(400);
-    next()
   }
+  next();
 }
 
 function addProfilePic(req,res,next){
