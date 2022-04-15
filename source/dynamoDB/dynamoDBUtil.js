@@ -25,7 +25,7 @@ const addEntry = async function(email,token){
       "ttl": expirationTime
     }
   };
-  return await docClient.put(params); 
+  return await docClient.put(params).promise(); 
 }
 
 const getEntry = async function(email,token){
@@ -37,7 +37,7 @@ const getEntry = async function(email,token){
     }
   };
 
-  return await docClient.get(params); 
+  return await docClient.get(params).promise(); 
 }
 
 module.exports = {
