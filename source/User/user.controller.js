@@ -52,7 +52,7 @@ async function createUser(req,res,next){
 
 const  generateNSendVerificationLink =async function (user){
   const token =   uuid.v4();
-  DynamoDBUtil.addEntry(user,token);
+  await DynamoDBUtil.addEntry(user.username,token);
   const email=user.username,userName=user.first_name;
   let verifyLink = `http://${config.domain}/v1/user/verify?email=${email}&token=${token}`;
   try{
