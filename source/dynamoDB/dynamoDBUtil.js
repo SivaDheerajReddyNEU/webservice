@@ -25,7 +25,7 @@ const addEntry = async function(email,token){
       "ttl": expirationTime
     }
   };
-  return await docClient.put(params).promise(); 
+  return await docClient.put(params).promise();
 }
 
 const getEntry = async function(email,token){
@@ -39,17 +39,17 @@ const getEntry = async function(email,token){
   console.log(params)
   try
   {
-    let data =  await docClient.get(params).promise(); 
+    let data =  await docClient.get(params).promise();
     console.log(data);
+    return data;
   }
   catch(e)
   {
     console.log(e);
-
-  return await docClient.get(params).promise(); 
-
+  }
 }
-}
+
+// getEntry('obulam.dheeraj+t4@gmail.com','a6b5914d-e1cc-4198-92cd-60c31bebc33b').then(data => {console.log(data);(data && Object.keys(data).length !== 0)?console.log('found entry'):console.log('entry not found')});
 
 module.exports = {
   addEntry,

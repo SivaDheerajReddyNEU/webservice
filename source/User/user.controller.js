@@ -51,9 +51,9 @@ async function createUser(req,res,next){
 }
 
 const  generateNSendVerificationLink =async function (user){
-  const token =   uuid.v4();
+  const token =   encodeURIComponent(uuid.v4());
   await DynamoDBUtil.addEntry(user.username,token);
-  const email=user.username,userName=user.first_name;
+  const email=encodeURIComponent(user.username),userName=user.first_name;
   let verifyLink = `http://${config.domain}/v1/user/verify?email=${email}&token=${token}`;
   try{
     await SNSUtil.sendEmail({toEmail:email,userName:userName,verifyLink:verifyLink});
@@ -74,7 +74,9 @@ catch(e){
   console.log(req.query);
   const email= req.query.email;
   const token= req.query.token;
-  if(DynamoDBUtil.getEntry(email,token) != null){
+   let data =  await DynamoDBUtil.getEntry(email,token);
+  //(data && Object.keys(data).length !== 0)
+  if( data && Object.keys(data).length !== 0){
     await userService.markUserVerified({username:req.query.email});
     res.status(200);
     res.json('Account Verified');
@@ -84,7 +86,6 @@ catch(e){
     console.log("entry not present");
     res.sendStatus(400);
   }
-  next();
 }
 
 function addProfilePic(req,res,next){
