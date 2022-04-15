@@ -69,7 +69,7 @@ catch(e){
   
 }
 
-function verifyUser(req,res,next){
+const verifyUser =async function (req,res,next){
   statsdClient.increment('get_/verify');
   console.log(req.query);
   const email= req.query.email;
