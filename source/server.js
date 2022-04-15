@@ -44,8 +44,7 @@ router.get('/healthz', (req, res) => {
  });
 app.use('/v1', router);
 router.get('*', (req, res) => {
-  res.status(400);
   res.setHeader('Content-Type', 'application/json');
-  res.send()
+  res.sendStatus(400);
 });
 module.exports = app;
