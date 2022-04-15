@@ -76,14 +76,18 @@ async function getUserWithHash({username}){
 
 async function markUserVerified({username}){
   const data = await db.User.findOne({ where: { username: username } });
+  console.log("data inside mark as user verified");
   console.log(data);
   let date_ob = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
   const temp = await db.User.update({
     verified:"true",
     updated_time:date_ob
     },{where:{username:username}});
+    console.log("data after updating");
   console.log(temp);
 }
+
+// markUserVerified({username:"obulam.dheeraj+t4@gmail.com"}).then(data => console.log(completed));
 module.exports = {
   // authenticate,
   getUserDetails,
