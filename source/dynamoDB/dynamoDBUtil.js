@@ -31,7 +31,7 @@ const addEntry = async function(email,token){
 const getEntry = async function(email,token){
   var params = {
     TableName: table,
-    Item: {
+    Key: {
       "email" : email,
       "token" : token
     }
