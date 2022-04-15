@@ -51,10 +51,10 @@ async function createUser(req,res,next){
 }
 
 const  generateNSendVerificationLink =async function (user){
-  const token =   encodeURIComponent(uuid.v4());
+  const token =   (uuid.v4());
   await DynamoDBUtil.addEntry(user.username,token);
-  const email=encodeURIComponent(user.username),userName=user.first_name;
-  let verifyLink = `http://${config.domain}/v1/user/verify?email=${email}&token=${token}`;
+  const email=user.username,userName=user.first_name;
+  let verifyLink = `http://${config.domain}/v1/user/verify?email=${encodeURIComponent(email)}&token=${encodeURIComponent(token)}`;
   try{
     await SNSUtil.sendEmail({toEmail:email,userName:userName,verifyLink:verifyLink});
 }
