@@ -83,13 +83,17 @@ const  generateNSendVerificationLink =async function (user){
   if( data && Object.keys(data).length !== 0){
     console.log(data);
     const secondsSinceEpoch = Math.round(Date.now() / 1000);
-    if(data.ttl>secondsSinceEpoch){
+    if(parseInt(data.ttl)>parseInt(secondsSinceEpoch)){
       await userService.markUserVerified({username:req.query.email});
       res.status(200);
       res.json('Account Verified');
-      console.log("marked user as verified")
+      console.log("marked user as verified");
     }
     else{
+      console.log("secondsSinceEpoch")
+      console.log(secondsSinceEpoch)
+      console.log("data.ttl")
+      console.log(data.ttl)
       res.status(400);
       res.json('URL Expired');
     }
