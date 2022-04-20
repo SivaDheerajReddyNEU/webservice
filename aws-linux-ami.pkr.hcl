@@ -9,9 +9,10 @@ packer {
 
 
 source "amazon-ebs" "customWebApp" {
-  ami_name               = "webserver"
+  ami_name               = "webserver_AMI_ENCRYPTED"
   ami_description        = "This ami is custom used for deploying the node application with mysql database"
   instance_type          = "t2.micro"
+  encrypt_boot           = true
   region                 = "us-east-1"
   skip_region_validation = true
   source_ami             = "ami-033b95fb8079dc481"
