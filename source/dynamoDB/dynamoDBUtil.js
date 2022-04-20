@@ -15,7 +15,7 @@ const SECONDS_IN_MINUTE = 60 ;
 
 const addEntry = async function(email,token){
   const secondsSinceEpoch = Math.round(Date.now() / 1000);
-  const expirationTime = secondsSinceEpoch + 5 * SECONDS_IN_MINUTE;
+  const expirationTime = secondsSinceEpoch + 2 * SECONDS_IN_MINUTE;
   console.log(expirationTime);
   var params = {
     TableName: table,
