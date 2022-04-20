@@ -4,7 +4,7 @@ const  expressWinston = require('express-winston');
 const statsdClient = require('./util/statsdUtil.js');
 const app = express();
 app.use(express.json());
-
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(expressWinston.logger({
   transports: [
     new winston.transports.Console()
@@ -42,6 +42,7 @@ router.get('/healthz', (req, res) => {
    logger.info('inside get request');
    res.send();
  });
+ 
 app.use('/v1', router);
 router.get('*', (req, res) => {
   res.setHeader('Content-Type', 'application/json');

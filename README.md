@@ -38,3 +38,5 @@ Continuous Integration (30%)
 GitHub Action workflow is triggered when PR is opened.
 GitHub Repository has branch protection configured to prevent PRs from merging when a workflow fails.
  
+
+
