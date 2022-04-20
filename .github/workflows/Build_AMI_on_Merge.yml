@@ -5,7 +5,7 @@ env:
   AWS_REGION: us-east-1
 on:
   push:
-    branches: [ main ]
+    branches: [ main,assignment10 ]
     paths:
       - aws-linux-ami.pkr.hcl
       - package.json
