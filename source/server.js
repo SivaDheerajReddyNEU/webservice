@@ -4,7 +4,7 @@ const  expressWinston = require('express-winston');
 const statsdClient = require('./util/statsdUtil.js');
 const app = express();
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(__dirname+ '/public'));
 app.use(expressWinston.logger({
   transports: [
     new winston.transports.Console()
