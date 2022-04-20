@@ -52,15 +52,17 @@ async function createUser(req,res,next){
 
 const  generateNSendVerificationLink =async function (user){
   const token =   (uuid.v4());
-  DynamoDBUtil.getEntry(user.username,token);
-  let data =  await DynamoDBUtil.getEntry(email,token);
+  
+  let data =  await DynamoDBUtil.getEntry(user.username,"EMAIL_SENT");
   //(data && Object.keys(data).length !== 0)
   if( !data || Object.keys(data).length === 0){
       await DynamoDBUtil.addEntry(user.username,token);
+      
       const email=user.username,userName=user.first_name;
       let verifyLink = `http://${config.domain}/v1/user/verify?email=${encodeURIComponent(email)}&token=${encodeURIComponent(token)}`;
       try{
         await SNSUtil.sendEmail({toEmail:email,userName:userName,verifyLink:verifyLink});
+        await DynamoDBUtil.addEntry(user.username,"EMAIL_SENT");
     }
     catch(e){
       console.log(e);
