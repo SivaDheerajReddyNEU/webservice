@@ -12,7 +12,6 @@ source "amazon-ebs" "customWebApp" {
   ami_name               = "webserver_AMI_ENCRYPTED"
   ami_description        = "This ami is custom used for deploying the node application with mysql database"
   instance_type          = "t2.micro"
-  encrypt_boot           = true
   region                 = "us-east-1"
   skip_region_validation = true
   source_ami             = "ami-033b95fb8079dc481"
@@ -20,7 +19,6 @@ source "amazon-ebs" "customWebApp" {
   ami_users              = ["231492973484","101417083507"]
   force_deregister       = true
   force_delete_snapshot  = true
-  kms_key_id             = "arn:aws:kms:us-east-1:101417083507:key/9e85beec-d4db-4885-b5be-a50c7ba27d85"
 }
 
 build {
