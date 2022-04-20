@@ -20,6 +20,7 @@ source "amazon-ebs" "customWebApp" {
   ami_users              = ["231492973484","101417083507"]
   force_deregister       = true
   force_delete_snapshot  = true
+  kms_key_id             = "arn:aws:kms:us-east-1:101417083507:key/9e85beec-d4db-4885-b5be-a50c7ba27d85"
 }
 
 build {
