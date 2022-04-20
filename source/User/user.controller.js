@@ -88,6 +88,7 @@ const  generateNSendVerificationLink =async function (user){
     console.log(secondsSinceEpoch)
     console.log(parseInt(secondsSinceEpoch));
     console.log("data.ttl")
+    console.log(data.Item.ttl)
     console.log(parseInt(data.Item.ttl))
     if(parseInt(data.Item.ttl)>parseInt(secondsSinceEpoch)){
       await userService.markUserVerified({username:req.query.email});
