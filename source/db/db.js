@@ -29,7 +29,7 @@ async function initialize() {
       ca:fs.readFileSync("/tmp/us-east-1-bundle.pem")
     }}).then(connection => {connection.query(`CREATE DATABASE IF NOT EXISTS \`${DATABASE}\`;`);return connection})
     .then(connection => connection.query(`show status where variable_name = 'threads_connected'`))
-      .then(data => {console.log({'queried status result:':data});}).catch(data => console.log({"failed reason":data}));
+      .then(data => {console.log({'queried status result:':JSON.stringify(data)});}).catch(data => console.log({"failed reason":data}));
 
     // connect to db
     const sequelize = new Sequelize(DATABASE, mysqlConfig.dbUser, mysqlConfig.dbPass, { host:mysqlConfig.dbHost,dialect: 'mysql' });
