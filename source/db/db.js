@@ -28,7 +28,7 @@ async function initialize() {
     ssl:{
       ca:fs.readFileSync("/tmp/us-east-1-bundle.pem")
     }}).then(connection => {connection.query(`CREATE DATABASE IF NOT EXISTS \`${DATABASE}\`;`);return connection})
-    .then(connection => connection.query(`show status where variable_name = 'threads_connected'`))
+    .then(connection => connection.query(`SHOW SESSION STATUS LIKE 'Ssl_cipher'`))
       .then(data => {console.log({'queried status result:':JSON.stringify(data)});}).catch(data => console.log({"failed reason":data}));
 
     // connect to db
