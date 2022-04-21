@@ -24,7 +24,11 @@ async function initialize() {
     let mysqlConfig = JSON.parse(rawdata);
     await mysql.createConnection({  host: mysqlConfig.dbHost,
       user: mysqlConfig.dbUser,
-      password: mysqlConfig.dbPass}).then(connection => connection.query(`CREATE DATABASE IF NOT EXISTS \`${DATABASE}\`;`))
+      password: mysqlConfig.dbPass,
+    ssl:{
+      ca:fs.readFileSync("/tmp/us-east-1-bundle.pem")
+    }}).then(connection => {connection.query(`CREATE DATABASE IF NOT EXISTS \`${DATABASE}\`;`);
+    console.log({"status query result:":connection.query(`status`)})})
       .then(data => console.log('queried')).catch(data => console.log("failed"));
 
     // connect to db
