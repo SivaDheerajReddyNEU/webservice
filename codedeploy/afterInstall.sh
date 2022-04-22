@@ -10,6 +10,7 @@ ls
 unzip /tmp/webserver.zip -d ./
 cd webserver
 cp amazon-cloudwatch-agent.json /tmp/amazon-cloudwatch-agent.json
+cp node_startup.sh /tmp/node_startup.sh
 npm ci
 cp /tmp/mysql.config .
 wget "https://truststore.pki.rds.amazonaws.com/us-east-1/us-east-1-bundle.pem"

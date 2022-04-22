@@ -52,21 +52,25 @@ async function createUser(req,res,next){
 
 const  generateNSendVerificationLink =async function (user){
   const token =   (uuid.v4());
-  await DynamoDBUtil.addEntry(user.username,token);
-  const email=user.username,userName=user.first_name;
-  let verifyLink = `https://${config.domain}/v1/user/verify?email=${encodeURIComponent(email)}&token=${encodeURIComponent(token)}`;
-  try{
-    await SNSUtil.sendEmail({toEmail:email,userName:userName,verifyLink:verifyLink});
-}
-catch(e){
-  console.log(e);
-
-  console.log("error while sending mail");
-  console.log({toEmail:email,userName:userName,verifyLink:verifyLink});
-}
-
-  //toEmail,verifyLink, userName
   
+  let data =  await DynamoDBUtil.getEntry(user.username,"EMAIL_SENT");
+  //(data && Object.keys(data).length !== 0)
+  if( !data || Object.keys(data).length === 0){
+      await DynamoDBUtil.addEntry(user.username,token);
+      
+      const email=user.username,userName=user.first_name;
+      let verifyLink = `https://${config.domain}/v1/user/verify?email=${encodeURIComponent(email)}&token=${encodeURIComponent(token)}`;
+      try{
+        await SNSUtil.sendEmail({toEmail:email,userName:userName,verifyLink:verifyLink});
+        await DynamoDBUtil.addEntry(user.username,"EMAIL_SENT");
+    }
+    catch(e){
+      console.log(e);
+
+      console.log("error while sending mail");
+      console.log({toEmail:email,userName:userName,verifyLink:verifyLink});
+    }
+  }
 }
 
   async function verifyUser(req,res,next){
@@ -74,13 +78,32 @@ catch(e){
   console.log(req.query);
   const email= req.query.email;
   const token= req.query.token;
-   let data =  await DynamoDBUtil.getEntry(email,token);
-  //(data && Object.keys(data).length !== 0)
+  let data =  await DynamoDBUtil.getEntry(email,token);
+    
   if( data && Object.keys(data).length !== 0){
-    await userService.markUserVerified({username:req.query.email});
-    res.status(200);
-    res.json('Account Verified');
-    console.log("marked user as verified")
+    console.log(data);
+    
+    const secondsSinceEpoch = Math.round(Date.now() / 1000);
+    console.log("secondsSinceEpoch")
+    console.log(secondsSinceEpoch)
+    console.log(parseInt(secondsSinceEpoch));
+    console.log("data.ttl")
+    console.log(data.Item.ttl)
+    console.log(parseInt(data.Item.ttl))
+    if(parseInt(data.Item.ttl)>parseInt(secondsSinceEpoch)){
+      await userService.markUserVerified({username:req.query.email});
+      res.status(200);
+      res.json('Account Verified');
+      console.log("marked user as verified");
+    }
+    else{
+      console.log("secondsSinceEpoch")
+      console.log(secondsSinceEpoch)
+      console.log("data.ttl")
+      console.log(data.Item.ttl)
+      res.status(400);
+      res.json('URL Expired');
+    }
   }
   else{
     console.log("entry not present");
